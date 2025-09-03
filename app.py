@@ -16,7 +16,6 @@ metrics = {
     "Breakout Probability": "breakout_prob",
     "Points per Game": "PTS",
     "Value Score": "ValueScore",
-    "Usage %": "USG_PCT",
     "Games Played": "GP",
 }
 metric_pretty = st.sidebar.selectbox("Color / Y-axis metric", list(metrics.keys()))
@@ -49,3 +48,4 @@ st.plotly_chart(fig, use_container_width=True)
 
 csv = df.to_csv(index=False)
 st.download_button(f"📥 Download CSV ({year})", csv, f"nba_{year}.csv")
+
