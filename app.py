@@ -6,44 +6,46 @@ import joblib
 import os
 from data_model import predict_breakouts
 
-st.set_page_config(page_title="NBA Breakout & Value MVP", layout="wide")
-st.title("🏀 NBA Breakout & Value MVP")
+st.set_page_config(page_title="NBA 2024-25 Breakout & Value MVP", layout="wide")
+st.title("🏀 NBA 2024-25 Breakout & Value MVP")
 
-if not os.path.isfile("model.pkl"):
-    st.error("Model not found. Run 'python data_model.py' first.")
-    st.stop()
+# ---- SIDEBAR CONTROLS ----
+year = st.sidebar.selectbox("Season", ["2023-24", "2024-25"], index=1)
 
+metrics = {
+    "Breakout Probability": "breakout_prob",
+    "Points per Game": "PTS",
+    "Value Score": "ValueScore",
+    "Usage %": "USG_PCT",
+    "Games Played": "GP",
+}
+metric_pretty = st.sidebar.selectbox("Color / Y-axis metric", list(metrics.keys()))
+metric_col = metrics[metric_pretty]
+
+# ---- LOAD DATA ----
 model = joblib.load('model.pkl')
 scaler = joblib.load('scaler.pkl')
+df = predict_breakouts(model, scaler, season=year)
 
-breakouts = predict_breakouts(model, scaler, season='2023-24')
+# helper columns
+df['ValueScore'] = 0.4 * df['PTS'] + 0.3 * df['REB'] + 0.2 * df['AST'] + 0.1 * df['STL']
+df['USG_PCT'] = 25.0  # placeholder if not in data
 
-# Top 10 breakout table
-st.header("🔥 Top 10 Breakout Candidates (PTS jump prediction)")
-top10 = breakouts.sort_values('breakout_prob', ascending=False).head(10)[['PLAYER_NAME', 'breakout_prob']]
+# ---- UI ----
+top10 = df.sort_values(metric_col, ascending=False).head(10)[['PLAYER_NAME', metric_col]]
+st.header(f"🔥 Top 10 – {metric_pretty}")
 st.dataframe(top10)
 
-# Value score (simple composite)
-breakouts['ValueScore'] = (
-    0.4 * breakouts['PTS'] +
-    0.3 * breakouts['REB'] +
-    0.2 * breakouts['AST'] +
-    0.1 * breakouts['STL']
-)
-
-# Scatter plot
-st.header("💰 Value vs Scoring")
 fig = px.scatter(
-    breakouts.head(50),
+    df.head(50),
     x='PTS',
-    y='ValueScore',
+    y=metric_col,
     size='GP',
-    color='breakout_prob',
+    color=metric_col,
     hover_data=['PLAYER_NAME'],
-    title="Top 50 Players – Bubble size = Games Played"
+    title=f"Top 50 Players – {metric_pretty} vs Scoring"
 )
 st.plotly_chart(fig, use_container_width=True)
 
-# Download button
-csv = breakouts.to_csv(index=False)
-st.download_button("📥 Download full CSV", csv, "breakouts.csv", "text/csv")
+csv = df.to_csv(index=False)
+st.download_button(f"📥 Download CSV ({year})", csv, f"nba_{year}.csv")
