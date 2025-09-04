@@ -11,7 +11,7 @@ def fetch_season_stats(season='2023-24'):
     On Streamlit Cloud we rely on the pre-saved CSV;
     on local machines we fall back to the NBA-API if the CSV is missing.
     """
-    csv_path = 'data_2023_24.csv'
+    csv_path = f'data_{season}.csv'
     if os.path.isfile(csv_path):
         return pd.read_csv(csv_path)
 
@@ -68,3 +68,4 @@ def predict_breakouts(model, scaler, season='2023-24'):
 
 if __name__ == "__main__":
     build_training_data()
+
