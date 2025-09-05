@@ -6,3 +6,5 @@ seaborn
 nba-api
 plotly
 joblib
+pytest
+pytest-mock
