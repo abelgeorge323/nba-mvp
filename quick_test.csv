@@ -1,0 +1,3 @@
+Summary,Priority,Preconditions,Steps,ExpectedResult
+"Breakout model returns top 10","Medium","App loaded","1. Open app 2. Select 2024-25 3. Sort by breakout_prob","List has 10 rows"
+"CSV export works","Low","None","Click 📥 Download","CSV file downloads"
