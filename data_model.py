@@ -60,12 +60,31 @@ def predict_breakouts(model, scaler, season='2024-25'):
     df['PTS_prev'] = df['PTS'] * 0.9
     features = ['AGE', 'GP', 'MIN', 'PTS_prev', 'REB', 'AST', 'STL', 'BLK', 'TOV',
                 'FG_PCT', 'FG3_PCT', 'FT_PCT']
-    df = df[features].fillna(0)
-    X_scaled = scaler.transform(df)
-    df['breakout_prob'] = model.predict_proba(X_scaled)[:, 1]
-    df['PLAYER_NAME'] = df['PLAYER_NAME']
-    return df[['PLAYER_NAME', 'breakout_prob', 'AGE', 'GP', 'MIN', 'PTS',
-               'REB', 'AST', 'STL', 'BLK', 'TOV', 'FG_PCT', 'FG3_PCT', 'FT_PCT']]
+    
+    names = df['PLAYER_NAME']            # ✅ save names
+    X = df[features].fillna(0)
+    X_scaled = scaler.transform(X)
+    
+    probs = model.predict_proba(X_scaled)[:, 1]
+    
+    # Re-assemble results
+    out = pd.DataFrame({
+        'PLAYER_NAME': names,
+        'breakout_prob': probs,
+        'AGE': df['AGE'],
+        'GP': df['GP'],
+        'MIN': df['MIN'],
+        'PTS': df['PTS'],
+        'REB': df['REB'],
+        'AST': df['AST'],
+        'STL': df['STL'],
+        'BLK': df['BLK'],
+        'TOV': df['TOV'],
+        'FG_PCT': df['FG_PCT'],
+        'FG3_PCT': df['FG3_PCT'],
+        'FT_PCT': df['FT_PCT']
+    })
+    return out
 
 if __name__ == "__main__":
     build_training_data()
