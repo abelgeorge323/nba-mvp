@@ -44,8 +44,11 @@ fig = px.scatter(
     hover_data=['PLAYER_NAME'],
     title=f"Top 50 Players – {metric_pretty} vs Scoring"
 )
+if metric_col == "ValueScore":
+    fig.update_yaxes(range=[0, 20])
 st.plotly_chart(fig, use_container_width=True)
 
 csv = df.to_csv(index=False)
 st.download_button(f"📥 Download CSV ({year})", csv, f"nba_{year}.csv")
+
 
