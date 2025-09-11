@@ -4,9 +4,8 @@ from jira import JIRA
 
 SERVER  = "https://foodtrx.atlassian.net"
 EMAIL   = "abelgeorge323@gmail.com"
-TOKEN   = "ATATT3xFfGF0giZcU1HvZX03U-xCDoj2K4wocpGl40TlrSLICgisBwODCOL8lEHYUgyFYID-XGWMXMkJMmnRHVfhvfmhRpbloUMIfS9MUGZJeJeweH-gABVqLeFAKE-wPb4pfah-rpyjFiqEGN-Wbc10yjnMA55fohizdpsENKVCpCE_6-rmiug=DD4E2363"
-PROJECT = "KAN"
-
+TOKEN   = "ATATT3xFfGF0HCmIC8B3J0ROIr8REP7M2m2l5pfut18-9udCgu7y96okT-b3NZIZ60QsfwjZ95tLBzr9FGXGFc36fnCgHcWccq5mn8mOeK-GPJQC_79QTu9VfOG3vHxyZEXMGvkpqYJpLNHxiKMu1lSQCrY3-7Ht7FHrn4JXW7FaCCxj1DX_2VA=54BB5C8F"
+PROJECT = "PRAC"
 jira = JIRA(server=SERVER, basic_auth=(EMAIL, TOKEN))
 
 with open("quick_test.csv", newline="", encoding="utf-8") as f:

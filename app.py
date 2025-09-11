@@ -56,3 +56,6 @@ st.plotly_chart(fig, use_container_width=True)
 # ---- DOWNLOAD ----
 csv = df.to_csv(index=False)
 st.download_button(f"📥 Download CSV ({year})", csv, f"nba_{year}.csv")
+
+import breakout_ai
+breakout_ai.show_breakout_search()
