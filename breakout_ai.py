@@ -4,7 +4,7 @@ import pandas as pd
 import google.generativeai as genai
 import requests, os
 
-GEMINI_KEY = os.getenv("NBA_TOKEN")   # your key
+GEMINI_KEY = "AIzaSyBpzFnrOZYXeTa1H3QNxj3Ym0v5McvzcIk"  # your key
 
 # ---------- 1.  LIVE ESPN NBA player stats ----------
 @st.cache_data(ttl=600)
