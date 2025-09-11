@@ -37,6 +37,7 @@ def gemini_one_liner(prompt):
 def show_cheeky_dashboards():
     st.markdown("### 😜 Cheeky NBA 2024-25 Dashboards")
     df = load_mega_frame()
+    st.write("Columns found:", df.columns.tolist())
 
     # ---- CATEGORY 1: Mr/Ms Everything (10 cards) ----
     if {"PTS", "AST", "REB"}.issubset(df.columns):
