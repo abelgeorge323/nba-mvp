@@ -59,3 +59,7 @@ st.download_button(f"📥 Download CSV ({year})", csv, f"nba_{year}.csv")
 
 import breakout_ai
 breakout_ai.show_breakout_search()
+
+# ---- CHEEKY DASHBOARDS ----
+import cheeky_dashboards
+cheeky_dashboards.show_cheeky_dashboards()
