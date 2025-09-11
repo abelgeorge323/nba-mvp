@@ -7,4 +7,5 @@ nba-api
 plotly
 joblib
 pytest
+feedparser
 google-generativeai
