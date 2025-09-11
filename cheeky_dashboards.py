@@ -7,7 +7,7 @@ GEMINI_KEY = "AIzaSyBpzFnrOZYXeTa1H3QNxj3Ym0v5McvzcIk"  # <- tomorrow move to .e
 # ---------- 1.  auto-detect & merge the 5 CSVs ----------
 @st.cache_data(ttl=600)
 def load_mega_frame():
-    csvs = glob.glob("*.csv")  # grab every csv in folder
+    csvs = glob.glob("NBA_2025_*.csv")
     mega = None
     for f in csvs:
         df = pd.read_csv(f)
