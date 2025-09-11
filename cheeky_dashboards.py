@@ -153,4 +153,4 @@ def create_insight_ticket(title, body):
 # ---------- 5.  wire into main ----------
 def show_cheeky_dashboards():
     st.markdown("### 😜 Cheeky NBA 2024-25 Dashboards")
-    cheeky_insights()
+    
